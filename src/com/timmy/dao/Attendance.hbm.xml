@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+          "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+<class name="com.timmy.dao.Attendance" table="ams_attendance">
+<id name="Aid" column="Aid" >
+<generator class="native" ></generator>
+</id>
+
+<property name="username" column="username"></property>
+<property name="isArrival" column="isArrival"></property>
+<property name="date" column="date"></property>
+<property name="Coursename" column="Coursename"></property>
+<property name="userNumber" column="userNumber"></property>
+
+
+
+
+
+
+</class>
+
+
+</hibernate-mapping>

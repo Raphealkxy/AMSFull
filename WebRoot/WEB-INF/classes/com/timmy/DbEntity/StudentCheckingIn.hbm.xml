@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+          "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+<class name="com.timmy.DbEntity.StudentCheckingIn" table="Tb_StudentCheckingIn">
+<id name="scid" column="scid" >
+<generator class="native" ></generator>
+</id>
+
+<property name="style" column="style"></property>
+
+<property name="recordtime" column="recordtime"></property>
+
+
+<property name="begintime" column="begintime"></property>
+
+<property name="endtime" column="endtime"></property>
+
+<set name="students" table="StudentCheckingIn_students" >
+
+<key column="scid"></key>
+
+
+<many-to-many class="com.timmy.DbEntity.Student" column="sid"/>
+</set>
+
+
+</class>
+
+
+</hibernate-mapping>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+          "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+<class name="com.timmy.DbEntity.Assistant" table="Tb_Assistant">
+<id name="aid" column="aid" >
+<generator class="native" ></generator>
+</id>
+
+<property name="ano" column="ano"></property>
+<property name="aname" column="aname"></property>
+<property name="sex" column="sex"></property>
+
+<many-to-one name="department"  class="com.timmy.DbEntity.Department" column="deptid"></many-to-one>
+
+<set name="students" table="student_assistant"  cascade="save-update,delete" inverse="true">
+
+<key column="sid"></key>
+
+
+<one-to-many class="com.timmy.DbEntity.Student" />
+</set>
+
+
+
+</class>
+
+
+</hibernate-mapping>

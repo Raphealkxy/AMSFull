@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+          "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+<class name="com.timmy.DbEntity.Student" table="Tb_Student">
+<id name="sid" column="sid" >
+<generator class="native" ></generator>
+</id>
+
+<property name="sno" column="sno"></property>
+<property name="sname" column="sname"></property>
+<property name="sex" column="sex"></property>
+<property name="major" column="major"></property>
+<property name="classname" column="classname"></property>
+
+<many-to-one name="assistant"  class="com.timmy.DbEntity.Assistant" column="aid"></many-to-one>
+
+<many-to-one name="department"  class="com.timmy.DbEntity.Department" column="deptid"></many-to-one>
+
+
+<set name="studentCheckingIns" table="StudentCheckingIn_students" >
+
+<key column="sid"></key>
+
+
+<many-to-many class="com.timmy.DbEntity.StudentCheckingIn" column="scid"/>
+</set>
+</class>
+
+
+</hibernate-mapping>

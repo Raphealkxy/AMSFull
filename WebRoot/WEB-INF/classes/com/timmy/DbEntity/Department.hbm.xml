@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+          "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+<class name="com.timmy.DbEntity.Department" table="Tb_Department">
+<id name="deptid" column="deptid" >
+<generator class="native" ></generator>
+</id>
+
+<property name="deptnum" column="deptnum"></property>
+<property name="deptname" column="deptname"></property>
+
+
+<set name="students" table="student_assistant"  cascade="save-update,delete" inverse="true">
+
+<key column="sid"></key>
+
+
+<one-to-many class="com.timmy.DbEntity.Student" />
+</set>
+
+<set name="assistants" table="department_assistant"  cascade="save-update,delete" inverse="true">
+
+<key column="aid"></key>
+
+
+<one-to-many class="com.timmy.DbEntity.Assistant" />
+</set>
+
+
+<set name="teachers" table="department_teacher"  cascade="save-update,delete" inverse="true">
+
+<key column="tid"></key>
+
+
+<one-to-many class="com.timmy.DbEntity.Teacher" />
+</set>
+
+
+</class>
+
+
+</hibernate-mapping>

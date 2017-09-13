@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+          "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+<class name="com.timmy.DbEntity.Teacher" table="Tb_Teacher">
+<id name="tid" column="tid" >
+<generator class="native" ></generator>
+</id>
+
+<property name="tno" column="tno"></property>
+<property name="tname" column="tname"></property>
+<property name="tsex" column="tsex"></property>
+<property name="position" column="position"></property>
+
+
+<many-to-one name="department"  class="com.timmy.DbEntity.Department" column="deptid"></many-to-one>
+
+
+
+
+
+<set name="courses" table="Teacher_Course" >
+
+<key column="tid"></key>
+
+
+<many-to-many class="com.timmy.DbEntity.Course" column="cid"/>
+</set>
+
+
+
+</class>
+
+
+</hibernate-mapping>
