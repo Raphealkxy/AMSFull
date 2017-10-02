@@ -40,13 +40,34 @@ public class AmsDao {
 		  return null;
 	}
 
-	public void register(User user) {
+	public int register(User user) {
 
+		int i=-1;
 		try {
-			hibernateTemplate.save(user);
+			 i= Integer.parseInt((String) hibernateTemplate.save(user));
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
+		return i;
+	}
+
+	public User UpdatePassword(String username,String newpassword) {
+		
+			User  user=hibernateTemplate.get(User.class, username);
+
+
+	      user.setPassword(newpassword);
+
+		     hibernateTemplate.update(user);
+
+		     user=hibernateTemplate.get(User.class, username);
+		
+		     return user;
+	
+	   
+         
+		
+		
 	}
 
 	

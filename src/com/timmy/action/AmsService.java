@@ -31,15 +31,15 @@ public class AmsService {
 	 Code code=new Code();
      if(user==null)
      {
-  	   code.setCode(0);
+  	   code.setCode(3);
   	   code.setResult("失败");
      }else {
   	   if(password.equals(user.getPassword()))
   	   {
-  		   code.setCode(1);
+  		   code.setCode(2);
   		   code.setResult("成功");
   	   }else{
-  		   code.setCode(0);
+  		   code.setCode(3);
   		   code.setResult("失败");
   	   }
   	   
@@ -53,8 +53,24 @@ public class AmsService {
 		return list;
 	}
 
-	public void register(User user) {
-         amsDao.register(user);		
+	public int register(User user) {
+       return  amsDao.register(user);		
+	}
+
+	public Code UpdatePassword(String username,
+			String newpassword) {
+		User user=amsDao.UpdatePassword(username,newpassword);
+		 Code code=new Code();
+
+		if(user.getPassword().equals(newpassword))
+		{
+			code.setCode(2);
+	  		   code.setResult("成功");
+		}else{
+			 code.setCode(3);
+	  		   code.setResult("失败");
+		}
+		return code;
 	}
 
 }

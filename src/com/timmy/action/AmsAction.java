@@ -47,6 +47,7 @@ public class AmsAction extends ActionSupport{
 	private String sex;
 	private String email;
 	private String telphone;
+	private String newpassword;
 	private Code code;
 	//上传文件必须
 	//struts2会自动封装下面三个参数.文件名称和描述在这里就不做封装了!  
@@ -56,6 +57,20 @@ public class AmsAction extends ActionSupport{
     private String uploadContentType; //上传文件的mime类型,固定写法: name+ContextType;  
     private String ID;
     
+    
+    
+
+	public String getNewpassword() {
+		return newpassword;
+	}
+
+
+
+	public void setNewpassword(String newpassword) {
+		this.newpassword = newpassword;
+	}
+
+
 
 	public String getID() {
 		return ID;
@@ -191,11 +206,29 @@ public class AmsAction extends ActionSupport{
 		return "ok";
 	}
 
-//	public String test()
-//	{
-//		amsService.test();
-//		return "ok";
-//	}
+   public String UpdatePassword()
+   {
+	   Code code=amsService.UpdatePassword(username,newpassword);
+	   System.out.println(1);
+	   HttpServletResponse response=ServletActionContext.getResponse();
+		  response.setContentType("application/json; charset=utf-8");  
+      response.setCharacterEncoding("UTF-8");  
+      Gson gson = new Gson();
+      String result = gson.toJson(code);  
+      OutputStream out1;
+    
+		try {
+			 
+			out1 = response.getOutputStream();
+			 out1.write(result.getBytes("UTF-8"));  
+	           out1.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	   
+	   return NONE;
+   }
 	
 	public String CheckLogin()
 	{
@@ -270,7 +303,34 @@ public class AmsAction extends ActionSupport{
 			user.setUsername(username);
 			user.setSex(sex);
 			user.setUserNumber(id);
-		amsService.register(user);
+		int i=amsService.register(user);
+		if(i>=0)
+		{
+			 code=new Code();
+			code.setCode(2);
+			code.setResult("基本信息注册成功");
+		}else{
+		     code=new Code();
+		code.setCode(3);
+		code.setResult("基本注册失败");
+		}
+		
+		HttpServletResponse response=ServletActionContext.getResponse();
+		  response.setContentType("application/json; charset=utf-8");  
+         response.setCharacterEncoding("UTF-8");  
+         Gson gson = new Gson();
+         String result = gson.toJson(code);  
+         OutputStream out1;
+       
+		try {
+			 
+			out1 = response.getOutputStream();
+			 out1.write(result.getBytes("UTF-8"));  
+	           out1.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 
 		return NONE;
 	}
