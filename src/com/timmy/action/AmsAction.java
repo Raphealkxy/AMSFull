@@ -56,9 +56,36 @@ public class AmsAction extends ActionSupport{
     private String uploadFileName; //上传的文件名称,固定写法:name+FileName;  
     private String uploadContentType; //上传文件的mime类型,固定写法: name+ContextType;  
     private String ID;
+    private String newusername;
     
     
     
+    
+    
+
+	public Code getCode() {
+		return code;
+	}
+
+
+
+	public void setCode(Code code) {
+		this.code = code;
+	}
+
+
+
+	public String getNewusername() {
+		return newusername;
+	}
+
+
+
+	public void setNewusername(String newusername) {
+		this.newusername = newusername;
+	}
+
+
 
 	public String getNewpassword() {
 		return newpassword;
@@ -206,6 +233,30 @@ public class AmsAction extends ActionSupport{
 		return "ok";
 	}
 
+	   public String UpdateInfo()
+	   {
+		   Code code=amsService.UpdateInfo(username,newusername,telphone,email);
+		   System.out.println(1);
+		   HttpServletResponse response=ServletActionContext.getResponse();
+			  response.setContentType("application/json; charset=utf-8");  
+	      response.setCharacterEncoding("UTF-8");  
+	      Gson gson = new Gson();
+	      String result = gson.toJson(code);  
+	      OutputStream out1;
+	    
+			try {
+				 
+				out1 = response.getOutputStream();
+				 out1.write(result.getBytes("UTF-8"));  
+		           out1.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+		   
+		   return NONE;
+	   }
+
    public String UpdatePassword()
    {
 	   Code code=amsService.UpdatePassword(username,newpassword);
@@ -230,17 +281,43 @@ public class AmsAction extends ActionSupport{
 	   return NONE;
    }
 	
-	public String CheckLogin()
+//	public String CheckLogin()
+//	{
+//		  //   System.out.println(username);
+//	    Code code=amsService.CheckLogin(username,password);
+//	     HttpServletResponse  response=ServletActionContext.getResponse();
+//	     HttpServletRequest request=ServletActionContext.getRequest();
+//	    response.setContentType("application/json; charset=utf-8");  
+//        response.setCharacterEncoding("UTF-8");  
+//        Gson gson = new Gson();
+//        String result = gson.toJson(code);  
+//        OutputStream out;
+//		try {
+//			out = response.getOutputStream();
+//			 out.write(result.getBytes("UTF-8"));  
+//		        out.flush();  
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}  
+//       
+//		return NONE;
+//	}
+	
+   public String CheckLogin()
 	{
-		  //   System.out.println(username);
-	    Code code=amsService.CheckLogin(username,password);
-	     HttpServletResponse  response=ServletActionContext.getResponse();
+	   
+	   HttpServletResponse  response=ServletActionContext.getResponse();
 	     HttpServletRequest request=ServletActionContext.getRequest();
 	    response.setContentType("application/json; charset=utf-8");  
-        response.setCharacterEncoding("UTF-8");  
-        Gson gson = new Gson();
-        String result = gson.toJson(code);  
-        OutputStream out;
+     response.setCharacterEncoding("UTF-8"); 
+		  //   System.out.println(username);
+	    User user=amsService.CheckLogin(username,password);
+	   if(user!=null)
+	   {
+       Gson gson = new Gson();
+       String result = gson.toJson(user);  
+       OutputStream out;
 		try {
 			out = response.getOutputStream();
 			 out.write(result.getBytes("UTF-8"));  
@@ -249,10 +326,9 @@ public class AmsAction extends ActionSupport{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}  
-       
+	   }
 		return NONE;
 	}
-	
 	//获取表单数据
 	public String getuserlist()
 	{
@@ -395,6 +471,9 @@ public class AmsAction extends ActionSupport{
 	           
 		return NONE;
 	}
+	
+	
+	
 
 
 			

@@ -70,6 +70,36 @@ public class AmsDao {
 		
 	}
 
+	public User UpdateInfo(String username,String newusername, String telphone, String email ) {
+//		if(username==null)
+//		{
+			System.out.println(username);
+	//	}
+		User  user=hibernateTemplate.get(User.class, username);
+		if(user==null)
+			System.out.println("null");
+		System.out.println(1);
+		try{
+       user.setUsername(newusername);
+       user.setEmail(email);
+       user.setTelephone(telphone);
+	     hibernateTemplate.update(user);
+		System.out.println(2);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		User  user1=hibernateTemplate.get(User.class, username);
+		System.out.println(3);
+
+      if(user1.getEmail().equals(email))
+      {
+    	  return user1;
+      }else {
+  		return null;
+
+	}
+	}
+
 	
 	
 	

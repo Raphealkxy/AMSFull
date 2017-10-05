@@ -25,26 +25,31 @@ public class AmsService {
 
 	
 
-	public Code CheckLogin(String username, String password) {
+	public User CheckLogin(String username, String password) {
             		
 	User user= amsDao.CheckLogin(username,password);
-	 Code code=new Code();
-     if(user==null)
-     {
-  	   code.setCode(3);
-  	   code.setResult("失败");
-     }else {
-  	   if(password.equals(user.getPassword()))
-  	   {
-  		   code.setCode(2);
-  		   code.setResult("成功");
-  	   }else{
-  		   code.setCode(3);
-  		   code.setResult("失败");
-  	   }
-  	   
+	String pasString=user.getPassword();
+	if(pasString.equals(password))
+	{
+		return user;
 	}
-     return code;
+//	 Code code=new Code();
+//     if(user==null)
+//     {
+//  	   code.setCode(3);
+//  	   code.setResult("失败");
+//     }else {
+//  	   if(password.equals(user.getPassword()))
+//  	   {
+//  		   code.setCode(2);
+//  		   code.setResult("成功");
+//  	   }else{
+//  		   code.setCode(3);
+//  		   code.setResult("失败");
+//  	   }
+//  	   
+//	}
+     return null;
 	}
 
 	public List<User> getuserlist() {
@@ -71,6 +76,20 @@ public class AmsService {
 	  		   code.setResult("失败");
 		}
 		return code;
+	}
+
+	public Code UpdateInfo(String username, String newusername,String telphone,String email) {
+		User user=amsDao.UpdateInfo(username,newusername,telphone,email);
+		 Code code=new Code();
+		 if(user!=null)
+			{
+				code.setCode(2);
+		  		   code.setResult("成功");
+			}else{
+				 code.setCode(3);
+		  		   code.setResult("失败");
+			}
+			return code;
 	}
 
 }
