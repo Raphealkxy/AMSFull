@@ -28,7 +28,7 @@ public class Sample {
         //System.out.println(res.toString(2));
       // Utils.facesetAddUser(client, path, "15416118", "孔祥月");
         //Utils.getGroupUsers(client);
-        faceUtils.identifyUser(client,path);
+        //faceUtils.identifyUser(client,path);
 	}
 
 }

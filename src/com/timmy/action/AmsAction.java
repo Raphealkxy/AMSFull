@@ -437,7 +437,7 @@ public class AmsAction extends ActionSupport{
 		String picpath=dir+"\\"+uploadFileName;
 		System.out.println(picpath);
 		AipFace client=Connection.getConnection();
-		org.json.JSONObject res=faceUtils.facesetAddUser(client, picpath, ID, username);
+		org.json.JSONObject res=faceUtils.facesetAddUser(client, picpath, ID, username,"group1");
 		   System.out.println(res.toString(2));
 			Long log_id=res.getLong("log_id");
 			System.out.println(log_id);
